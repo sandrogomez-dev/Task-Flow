@@ -1,0 +1,442 @@
+/* Variables CSS globales */
+:root {
+  --primary-color: #4a6fa5;
+  --secondary-color: #166088;
+  --success-color: #4cb944;
+  --warning-color: #ffba08;
+  --danger-color: #d00000;
+  --light-bg: #f8f9fa;
+  --dark-text: #2d3142;
+  --card-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  --border-radius: 0.75rem;
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease-out;
+}
+
+/* Sobreescrituras de Bootstrap */
+.card {
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  border: none;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  transition: all var(--transition-fast);
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  transform: translateY(-1px);
+}
+
+.btn-success {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+}
+
+.btn-warning {
+  background-color: var(--warning-color);
+  border-color: var(--warning-color);
+}
+
+.btn-danger {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.task-card {
+  animation: fadeIn var(--transition-normal);
+}
+
+.fade-in {
+  animation: fadeIn var(--transition-normal);
+}
+
+.slide-in {
+  animation: slideIn var(--transition-normal);
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Utilidades personalizadas */
+.bg-light-custom {
+  background-color: var(--light-bg);
+}
+
+.text-dark-custom {
+  color: var(--dark-text);
+}
+
+.shadow-custom {
+  box-shadow: var(--card-shadow);
+}
+
+/* Responsive utilities */
+.scrollable-container {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.scrollable-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 3px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
+/* Layout */
+.main-container {
+  min-height: 100vh;
+  background-color: var(--light-bg);
+}
+
+.sidebar {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  min-height: 100vh;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.content-wrapper {
+  padding: 2rem;
+  flex: 1;
+}
+
+/* Kanban específico */
+.kanban-board {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+.kanban-column {
+  min-width: 300px;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  padding: 1rem;
+}
+
+.kanban-column-header {
+  font-weight: 600;
+  color: var(--dark-text);
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.task-item {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  cursor: grab;
+  transition: all var(--transition-fast);
+}
+
+.task-item:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(74, 111, 165, 0.15);
+}
+
+.task-item.dragging {
+  opacity: 0.5;
+  transform: rotate(5deg);
+}
+
+/* Gantt específico */
+.gantt-container {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+.gantt-timeline {
+  overflow-x: auto;
+  background: #f8f9fa;
+}
+
+.gantt-task-bar {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 4px;
+  height: 24px;
+  color: white;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.gantt-task-bar:hover {
+  transform: scaleY(1.2);
+  box-shadow: 0 2px 8px rgba(74, 111, 165, 0.3);
+}
+
+/* Time Tracker específico */
+.time-tracker {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  padding: 1.5rem;
+}
+
+.time-display {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-align: center;
+  font-family: 'Courier New', monospace;
+}
+
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Estado loading */
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Estados de notificación */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  color: white;
+  font-weight: 500;
+  z-index: 1050;
+  animation: slideIn var(--transition-normal);
+}
+
+.notification.success {
+  background-color: var(--success-color);
+}
+
+.notification.error {
+  background-color: var(--danger-color);
+}
+
+.notification.warning {
+  background-color: var(--warning-color);
+  color: var(--dark-text);
+}
+
+/* Sidebar específico */
+.sidebar {
+  width: 280px;
+  transition: width var(--transition-fast);
+  position: relative;
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar .nav-link {
+  transition: all var(--transition-fast);
+}
+
+.sidebar .nav-link:hover {
+  background-color: rgba(255,255,255,0.1) !important;
+}
+
+.column-indicator {
+  width: 4px;
+  height: 20px;
+  border-radius: 2px;
+}
+
+/* Kanban específico adicional */
+.kanban-column-wrapper {
+  flex: 0 0 auto;
+}
+
+.column-drag-over {
+  background-color: rgba(74, 111, 165, 0.1);
+  border: 2px dashed var(--primary-color);
+}
+
+.task-drag-overlay {
+  transform: rotate(5deg);
+  opacity: 0.9;
+  z-index: 1000;
+}
+
+.drop-zone-indicator {
+  background-color: rgba(74, 111, 165, 0.1);
+  border: 2px dashed var(--primary-color);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  text-align: center;
+  color: var(--primary-color);
+  margin: 0.5rem 0;
+}
+
+.empty-column {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Gantt específico adicional */
+.gantt-task-row:hover {
+  background-color: #f8f9fa;
+}
+
+.gantt-grid-cell {
+  border-color: #e9ecef;
+}
+
+.gantt-date-cell {
+  border-color: #e9ecef;
+}
+
+.resize-handle {
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.gantt-task-bar:hover .resize-handle {
+  opacity: 1;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .kanban-board {
+    flex-direction: column;
+  }
+  
+  .kanban-column {
+    min-width: 100%;
+  }
+  
+  .content-wrapper {
+    padding: 1rem;
+  }
+  
+  .sidebar {
+    min-height: auto;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    z-index: 1040;
+    transition: left var(--transition-fast);
+  }
+  
+  .sidebar.show {
+    left: 0;
+  }
+  
+  .sidebar.collapsed {
+    width: 100%;
+  }
+  
+  .time-display {
+    font-size: 1.5rem;
+  }
+  
+  .timer-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .main-content {
+    margin-left: 0 !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .gantt-container {
+    font-size: 0.875rem;
+  }
+  
+  .task-item {
+    padding: 0.75rem;
+  }
+  
+  .time-tracker {
+    padding: 1rem;
+  }
+  
+  .gantt-task-column {
+    min-width: 200px !important;
+  }
+} 
