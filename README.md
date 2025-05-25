@@ -31,7 +31,7 @@ TaskFlow es una aplicación de gestión de proyectos moderna inspirada en Asana 
 ### Instalación
 ```bash
 # Clonar el repositorio
-git clone https://github.com/tu-usuario/taskflow.git
+git clone https://github.com/sandrogomez-dev/taskflow.git
 cd taskflow
 
 # Instalar dependencias
