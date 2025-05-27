@@ -1,6 +1,11 @@
 {
   "version": 2,
   "name": "taskflow",
+  "functions": {
+    "app/api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "builds": [
     {
       "src": "package.json",

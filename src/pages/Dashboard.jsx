@@ -45,7 +45,7 @@ const Dashboard = () => {
       console.log('Seleccionando primer proyecto disponible');
       setCurrentProject(projects[0]);
     }
-  }, [projects, currentProject, setCurrentProject, dispatch]);
+  }, [projects, currentProject, setCurrentProject, dispatch, actionTypes.ADD_PROJECT]);
 
   // Estadísticas del proyecto actual
   const projectStats = React.useMemo(() => {

@@ -529,10 +529,10 @@ const Settings = () => {
                     <div className="col-md-6">
                       <h6>Recursos</h6>
                       <ul className="list-unstyled">
-                        <li><a href="#" className="text-decoration-none">📖 Documentación</a></li>
-                        <li><a href="#" className="text-decoration-none">🐛 Reportar un error</a></li>
-                        <li><a href="#" className="text-decoration-none">💡 Sugerir mejora</a></li>
-                        <li><a href="#" className="text-decoration-none">📧 Contacto</a></li>
+                        <li><button type="button" className="btn btn-link p-0 text-decoration-none">📖 Documentación</button></li>
+                        <li><button type="button" className="btn btn-link p-0 text-decoration-none">🐛 Reportar un error</button></li>
+                        <li><button type="button" className="btn btn-link p-0 text-decoration-none">💡 Sugerir mejora</button></li>
+                        <li><button type="button" className="btn btn-link p-0 text-decoration-none">📧 Contacto</button></li>
                       </ul>
                     </div>
                   </div>
