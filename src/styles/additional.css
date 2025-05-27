@@ -1,0 +1,259 @@
+/* Additional styles for TaskFlow pages */
+
+/* Projects Page */
+.project-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.project-stats {
+  font-size: 0.875rem;
+}
+
+/* Reports Page */
+.analytics-card {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+.analytics-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.metric-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.chart-container {
+  position: relative;
+  height: 300px;
+}
+
+/* Settings Page */
+.settings-sidebar .list-group-item {
+  border: none;
+  padding: 12px 20px;
+  transition: all 0.2s ease;
+}
+
+.settings-sidebar .list-group-item:hover {
+  background-color: #f8f9fa;
+  padding-left: 24px;
+}
+
+.settings-sidebar .list-group-item.active {
+  background-color: #0d6efd;
+  color: white;
+  border-radius: 8px;
+  margin: 2px 8px;
+}
+
+.settings-content {
+  min-height: 500px;
+}
+
+/* Form enhancements */
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Button enhancements */
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Card enhancements */
+.card {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Badge enhancements */
+.badge {
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+/* Progress bar enhancements */
+.progress {
+  border-radius: 10px;
+  background-color: #f1f3f4;
+}
+
+.progress-bar {
+  border-radius: 10px;
+}
+
+/* Modal enhancements */
+.modal-content {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  border-bottom: 1px solid #e9ecef;
+  border-radius: 12px 12px 0 0;
+}
+
+.modal-footer {
+  border-top: 1px solid #e9ecef;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Table enhancements */
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead th {
+  border-bottom: 2px solid #e9ecef;
+  font-weight: 600;
+  color: #495057;
+  background-color: #f8f9fa;
+}
+
+/* Alert enhancements */
+.alert {
+  border-radius: 8px;
+  border: none;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #0d6efd;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .project-card {
+    margin-bottom: 1rem;
+  }
+  
+  .analytics-card {
+    margin-bottom: 1rem;
+  }
+  
+  .settings-sidebar {
+    margin-bottom: 2rem;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+  }
+  
+  .btn-group .btn {
+    border-radius: 8px !important;
+    margin-bottom: 4px;
+  }
+}
+
+/* Dark theme support */
+[data-theme="dark"] {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .card {
+  background-color: #2d2d2d;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .table {
+  background-color: #2d2d2d;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .table thead th {
+  background-color: #3d3d3d;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+  background-color: #3d3d3d;
+  border-color: #555;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .modal-content {
+  background-color: #2d2d2d;
+  color: #ffffff;
+}
+
+/* Animation classes */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Navbar enhancements */
+.navbar {
+  z-index: 1030;
+}
+
+.navbar .btn {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+.navbar .btn:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.6;
+}
+
+.navbar .btn:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+} 

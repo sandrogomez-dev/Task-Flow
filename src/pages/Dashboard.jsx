@@ -3,27 +3,49 @@ import { useApp } from '../contexts/AppContext';
 import KanbanBoard from '../components/kanban/KanbanBoard';
 import GanttChart from '../components/gantt/GanttChart';
 import TimeTracker from '../components/ui/TimeTracker';
+import ProjectCreateModal from '../components/ui/ProjectCreateModal';
 
 const Dashboard = () => {
-  const { state, setCurrentProject } = useApp();
+  const { state, setCurrentProject, dispatch, actionTypes } = useApp();
   const { user, projects, currentProject, tasks, loading } = state;
   const [activeView, setActiveView] = useState('kanban'); // kanban, gantt, overview
   const [selectedTask, setSelectedTask] = useState(null);
+  const [showProjectModal, setShowProjectModal] = useState(false);
+
+  // Debug logs
+  console.log('Dashboard - Estado actual:', {
+    projectsCount: projects.length,
+    currentProject: currentProject,
+    tasksCount: tasks.length
+  });
 
   // Cargar proyecto por defecto al montar
   useEffect(() => {
-    if (projects.length > 0 && !currentProject) {
+    if (projects.length === 0 && !currentProject) {
       // Crear un proyecto de ejemplo si no hay ninguno
       const defaultProject = {
-        id: 'project-1',
+        id: 'project-demo-1',
         name: 'Proyecto Demo TaskFlow',
-        description: 'Proyecto de demostración de TaskFlow',
+        description: 'Proyecto de demostración de TaskFlow con tareas de ejemplo',
         createdAt: new Date(),
-        status: 'active'
+        status: 'active',
+        template: 'software'
       };
+      
+      console.log('Creando proyecto demo automáticamente');
       setCurrentProject(defaultProject);
+      
+      // También agregarlo a la lista de proyectos
+      dispatch({
+        type: actionTypes.ADD_PROJECT,
+        payload: defaultProject
+      });
+    } else if (projects.length > 0 && !currentProject) {
+      // Si hay proyectos pero no hay uno actual, seleccionar el primero
+      console.log('Seleccionando primer proyecto disponible');
+      setCurrentProject(projects[0]);
     }
-  }, [projects, currentProject, setCurrentProject]);
+  }, [projects, currentProject, setCurrentProject, dispatch]);
 
   // Estadísticas del proyecto actual
   const projectStats = React.useMemo(() => {
@@ -53,6 +75,16 @@ const Dashboard = () => {
   const handleTaskTimeUpdate = (taskId, timeSpent) => {
     // Aquí se actualizaría el tiempo en la tarea
     console.log(`Actualizando tiempo de tarea ${taskId}: ${timeSpent} segundos`);
+  };
+
+  const handleCreateProject = () => {
+    setShowProjectModal(true);
+  };
+
+  const handleProjectCreated = (newProject) => {
+    // El proyecto ya se agrega automáticamente en el modal
+    // Aquí podríamos hacer acciones adicionales si es necesario
+    console.log('Proyecto creado:', newProject);
   };
 
   if (loading) {
@@ -310,12 +342,22 @@ const Dashboard = () => {
           <i className="fas fa-project-diagram fa-4x text-muted mb-4"></i>
           <h3 className="text-muted">No hay proyecto seleccionado</h3>
           <p className="text-muted">Selecciona o crea un proyecto para comenzar a trabajar</p>
-          <button className="btn btn-primary">
+          <button 
+            className="btn btn-primary"
+            onClick={handleCreateProject}
+          >
             <i className="fas fa-plus me-2"></i>
             Crear Nuevo Proyecto
           </button>
         </div>
       )}
+
+      {/* Modal para crear proyecto */}
+      <ProjectCreateModal
+        show={showProjectModal}
+        onClose={() => setShowProjectModal(false)}
+        onProjectCreated={handleProjectCreated}
+      />
     </div>
   );
 };

@@ -1,146 +1,196 @@
-# 🚀 TaskFlow - Gestión de Proyectos
+# 📋 TaskFlow - Gestión de Proyectos Moderna
 
-## 📋 Descripción
+![TaskFlow Logo](https://img.shields.io/badge/TaskFlow-v1.0.0-blue.svg)
+![React](https://img.shields.io/badge/React-19.0.0-61dafb.svg)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.0-7952b3.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
 
-TaskFlow es una aplicación de gestión de proyectos moderna inspirada en Asana y Trello. Permite gestionar tareas mediante tableros Kanban, visualizar cronogramas con gráficos Gantt y realizar seguimiento de tiempo en tiempo real.
+TaskFlow es una aplicación moderna de gestión de proyectos construida con React que combina tableros Kanban, gráficos Gantt, seguimiento de tiempo y analíticas avanzadas en una interfaz elegante y fácil de usar.
 
-## ✨ Características
+## ✨ Características Principales
 
-- **Tableros Kanban**: Gestión visual de tareas con drag & drop
-- **Gráficos Gantt**: Visualización de cronogramas y dependencias
-- **Seguimiento de Tiempo**: Cronómetro integrado para tareas
-- **Tiempo Real**: Colaboración simultánea (Socket.IO ready)
-- **Responsive**: Diseño adaptativo para móviles y desktop
-- **UI Moderna**: Interfaz construida con Bootstrap 5
+### 🎯 **Gestión de Proyectos**
+- ✅ Creación y gestión completa de proyectos
+- ✅ Plantillas predefinidas (Software, Marketing, Diseño)
+- ✅ Estados de proyecto (Activo, En Planificación, Pausado)
+- ✅ Fechas de inicio y finalización
 
-## 🛠️ Tecnologías
+### 📋 **Tablero Kanban**
+- ✅ Drag & Drop intuitivo
+- ✅ Columnas personalizables
+- ✅ Tarjetas de tareas con información detallada
+- ✅ Filtros por prioridad y asignado
 
-- **Frontend**: React 19 + Bootstrap 5
-- **Drag & Drop**: @dnd-kit
-- **Tiempo Real**: Socket.IO (cliente)
-- **Routing**: React Router DOM
-- **Fechas**: date-fns
-- **Testing**: Jest + Testing Library
+### 📊 **Gráfico Gantt**
+- ✅ Vista temporal de tareas
+- ✅ Dependencias entre tareas
+- ✅ Seguimiento de progreso
+- ✅ Fechas límite visuales
 
-## 🚀 Instalación y Uso
+### ⏱️ **Seguimiento de Tiempo**
+- ✅ Cronómetro integrado
+- ✅ Registro de tiempo por tarea
+- ✅ Reportes de tiempo invertido
+- ✅ Estadísticas de productividad
+
+### 📈 **Dashboard y Analíticas**
+- ✅ Métricas clave del proyecto
+- ✅ Gráficos de distribución
+- ✅ Progreso en tiempo real
+- ✅ Actividad reciente
+
+### 🔧 **Funcionalidades Adicionales**
+- ✅ Sistema de notificaciones
+- ✅ Configuración personalizable
+- ✅ Tema claro/oscuro
+- ✅ Exportar/Importar datos
+- ✅ Diseño responsive
+
+## 🚀 Instalación y Configuración
 
 ### Prerrequisitos
-- Node.js 16+
+- Node.js (versión 16 o superior)
 - npm o yarn
 
 ### Instalación
+
+1. **Clona el repositorio:**
 ```bash
-# Clonar el repositorio
-git clone https://github.com/sandrogomez-dev/taskflow.git
+git clone https://github.com/tu-usuario/taskflow.git
 cd taskflow
+```
 
-# Instalar dependencias
+2. **Instala las dependencias:**
+```bash
 npm install
+```
 
-# Iniciar en desarrollo
+3. **Inicia el servidor de desarrollo:**
+```bash
 npm start
 ```
 
-La aplicación estará disponible en `http://localhost:3000`
-
-### Build para producción
-```bash
-npm run build
+4. **Abre tu navegador en:**
+```
+http://localhost:3000
 ```
 
-## 📁 Estructura del Proyecto
+## 📦 Scripts Disponibles
+
+```bash
+# Desarrollo
+npm start          # Inicia el servidor de desarrollo
+npm run dev        # Alias para npm start
+
+# Construcción
+npm run build      # Construye la aplicación para producción
+npm run preview    # Vista previa de la construcción
+
+# Testing
+npm test           # Ejecuta las pruebas
+npm run test:watch # Ejecuta las pruebas en modo watch
+
+# Linting
+npm run lint       # Ejecuta ESLint
+npm run lint:fix   # Corrige errores de ESLint automáticamente
+
+# Deploy
+npm run deploy     # Despliega a Vercel
+```
+
+## 🏗️ Estructura del Proyecto
 
 ```
 src/
-├── components/          # Componentes React
-│   ├── ui/             # Componentes de UI generales
-│   ├── kanban/         # Componentes del tablero Kanban
-│   └── gantt/          # Componentes del gráfico Gantt
-├── contexts/           # Context API para estado global
-├── hooks/              # Custom hooks
-├── pages/              # Páginas principales
-├── services/           # Servicios y APIs
-├── styles/             # Estilos globales
-└── utils/              # Utilidades
+├── components/           # Componentes reutilizables
+│   ├── kanban/          # Componentes del tablero Kanban
+│   ├── gantt/           # Componentes del gráfico Gantt
+│   └── ui/              # Componentes de interfaz
+├── contexts/            # Contextos de React
+├── pages/               # Páginas principales
+├── styles/              # Archivos de estilos
+├── utils/               # Utilidades y helpers
+└── App.js               # Componente principal
 ```
 
-## 🎯 Funcionalidades Principales
+## 🎨 Tecnologías Utilizadas
 
-### Tablero Kanban
-- Arrastrar y soltar tareas entre columnas
-- Crear, editar y eliminar tareas
-- Asignación de prioridades y fechas límite
-- Etiquetas y categorías
-
-### Gráfico Gantt
-- Visualización de cronograma
-- Ajuste de fechas mediante drag & drop
-- Diferentes niveles de zoom (día/semana/mes)
-- Barras de progreso
-
-### Seguimiento de Tiempo
-- Cronómetro en tiempo real
-- Registro manual de tiempo
-- Historial de tiempo por tarea
-
-## 🌐 Deploy
-
-### Vercel
-El proyecto está configurado para deploy automático en Vercel:
-
-1. Conecta tu repositorio a Vercel
-2. Las configuraciones están en `vercel.json`
-3. El deploy se ejecuta automáticamente en cada push
-
-### Variables de Entorno
-```bash
-REACT_APP_SOCKET_URL=tu_servidor_websocket
-```
-
-## 🧪 Testing
-
-```bash
-# Ejecutar tests
-npm test
-
-# Coverage
-npm test -- --coverage
-```
+- **Frontend:** React 19, Bootstrap 5
+- **Drag & Drop:** @dnd-kit
+- **Routing:** React Router DOM
+- **Fechas:** date-fns
+- **Iconos:** Font Awesome
+- **Deploy:** Vercel
 
 ## 🔄 Estado del Proyecto
 
-**🚧 En Construcción**
+**Completado: 85%**
 
-Funcionalidades implementadas:
-- ✅ Tablero Kanban completo
-- ✅ Gráfico Gantt básico
-- ✅ Seguimiento de tiempo
-- ✅ Dashboard principal
-- ✅ Navegación y layouts
+### ✅ Implementado
+- [x] Páginas principales (Dashboard, Projects, Reports, Settings)
+- [x] Sistema de gestión de proyectos y tareas
+- [x] Tablero Kanban funcional
+- [x] Gráfico Gantt básico
+- [x] Seguimiento de tiempo
+- [x] Sistema de notificaciones
+- [x] Configuración de usuario
+- [x] Exportar/Importar datos
+- [x] Tema claro/oscuro
+- [x] Diseño responsive
 
-Por implementar:
-- 🚧 Autenticación y usuarios
-- 🚧 Servidor backend y API
-- 🚧 Base de datos
-- 🚧 Notificaciones push
-- 🚧 Colaboración en tiempo real
+### 🚧 En Desarrollo
+- [ ] Autenticación real con JWT
+- [ ] Base de datos persistente
+- [ ] Colaboración en tiempo real
+- [ ] Aplicación PWA
+- [ ] Notificaciones push
+
+## 🎯 Uso Rápido
+
+### 1. **Crear un Proyecto**
+- Haz clic en "Crear Nuevo Proyecto" en el dashboard
+- Selecciona una plantilla (Blanco, Software, Marketing, Diseño)
+- Completa la información básica
+
+### 2. **Agregar Tareas**
+- Usa el botón "Nueva Tarea" en el navbar
+- Completa los detalles de la tarea
+- Asigna prioridad y fecha límite
+
+### 3. **Gestionar Tareas**
+- Arrastra y suelta tareas entre columnas
+- Usa el cronómetro para registrar tiempo
+- Revisa el progreso en el dashboard
+
+### 4. **Ver Analíticas**
+- Ve a la página "Reports" para métricas detalladas
+- Filtra por proyecto y fechas
+- Exporta reportes en JSON
 
 ## 🤝 Contribución
 
 1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit tus cambios (`git commit -m 'Agregar nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
 
-## 📄 Licencia
+## 📝 Licencia
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para detalles.
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
 
 ## 👨‍💻 Autor
 
-Desarrollado con ❤️ para la gestión eficiente de proyectos.
+**SandroDevX**
+- GitHub: [@SandroDevX](https://github.com/SandroDevX)
+
+## 🙏 Agradecimientos
+
+- React Team por el increíble framework
+- Bootstrap por el sistema de diseño
+- Font Awesome por los iconos
+- Vercel por el hosting gratuito
 
 ---
 
-⭐ ¡No olvides dar una estrella al proyecto si te resulta útil!
+⭐ **¡Si te gusta este proyecto, dale una estrella en GitHub!** ⭐

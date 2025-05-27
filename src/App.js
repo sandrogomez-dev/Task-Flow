@@ -2,6 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AppProvider } from './contexts/AppContext';
 import Dashboard from './pages/Dashboard';
+import Projects from './pages/Projects';
+import Reports from './pages/Reports';
+import Settings from './pages/Settings';
 import Sidebar from './components/ui/Sidebar';
 import Navbar from './components/ui/Navbar';
 import NotificationContainer from './components/ui/NotificationContainer';
@@ -25,9 +28,9 @@ function App() {
               <Routes>
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/projects" element={<div>Proyectos (En desarrollo)</div>} />
-                <Route path="/reports" element={<div>Reportes (En desarrollo)</div>} />
-                <Route path="/settings" element={<div>Configuración (En desarrollo)</div>} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/reports" element={<Reports />} />
+                <Route path="/settings" element={<Settings />} />
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />
               </Routes>
             </main>

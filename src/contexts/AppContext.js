@@ -271,6 +271,44 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const addProject = (project) => {
+    dispatch({
+      type: actionTypes.ADD_PROJECT,
+      payload: project
+    });
+    showNotification('Proyecto creado exitosamente', 'success');
+  };
+
+  const updateProject = (projectId, updatedData) => {
+    dispatch({
+      type: actionTypes.UPDATE_PROJECT,
+      payload: { id: projectId, ...updatedData }
+    });
+    showNotification('Proyecto actualizado exitosamente', 'success');
+  };
+
+  const deleteProject = (projectId) => {
+    dispatch({
+      type: actionTypes.DELETE_PROJECT,
+      payload: projectId
+    });
+    showNotification('Proyecto eliminado exitosamente', 'success');
+  };
+
+  // Funciones de usuario
+  const updateUser = (userData) => {
+    dispatch({
+      type: actionTypes.SET_USER,
+      payload: userData
+    });
+    showNotification('Perfil actualizado exitosamente', 'success');
+  };
+
+  // Alias para showNotification para compatibilidad
+  const addNotification = (message, type = 'info', autoRemove = true) => {
+    showNotification(message, type, autoRemove);
+  };
+
   const loadProjectTasks = async (projectId) => {
     setLoading(true);
     try {
@@ -333,11 +371,16 @@ export const AppProvider = ({ children }) => {
     dispatch,
     // Helper functions
     showNotification,
+    addNotification,
     setLoading,
     setError,
     clearError,
     setCurrentProject,
     loadProjectTasks,
+    addProject,
+    updateProject,
+    deleteProject,
+    updateUser,
     // Action types for external use
     actionTypes
   };
