@@ -26,7 +26,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_ENABLE_REAL_TIME=false react-scripts start",
+    "start:realtime": "REACT_APP_ENABLE_REAL_TIME=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

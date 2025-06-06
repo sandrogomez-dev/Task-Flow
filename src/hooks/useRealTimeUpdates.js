@@ -5,10 +5,15 @@ import { useApp } from '../contexts/AppContext';
 // URL del servidor Socket.IO (configurar según el entorno)
 const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || 'http://localhost:3001';
 
+// Flag para habilitar/deshabilitar conexiones WebSocket
+const ENABLE_REAL_TIME = process.env.REACT_APP_ENABLE_REAL_TIME === 'true' || false;
+
 const useRealTimeUpdates = (projectId) => {
   const [socket, setSocket] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [connectionAttempts, setConnectionAttempts] = useState(0);
+  const [maxAttemptsReached, setMaxAttemptsReached] = useState(false);
   
   const { dispatch, actionTypes, showNotification } = useApp();
 
@@ -20,14 +25,18 @@ const useRealTimeUpdates = (projectId) => {
 
   // Inicializar conexión Socket.IO
   useEffect(() => {
-    if (!projectId) return;
+    // Si no está habilitado el tiempo real o no hay projectId, no intentar conectar
+    if (!ENABLE_REAL_TIME || !projectId || maxAttemptsReached) {
+      console.log('⏸️ Conexiones en tiempo real deshabilitadas');
+      return;
+    }
 
     const newSocket = io(SOCKET_URL, {
       transports: ['websocket', 'polling'],
-      reconnectionDelay: 1000,
-      reconnectionAttempts: 5,
-      maxReconnectionAttempts: 5,
-      timeout: 20000,
+      reconnectionDelay: 2000,
+      reconnectionAttempts: 3,
+      maxReconnectionAttempts: 3,
+      timeout: 10000,
       query: {
         projectId: projectId
       }
@@ -39,6 +48,8 @@ const useRealTimeUpdates = (projectId) => {
     newSocket.on('connect', () => {
       console.log('🔗 Conectado al servidor Socket.IO');
       setIsConnected(true);
+      setConnectionAttempts(0);
+      setMaxAttemptsReached(false);
       
       // Unirse al room del proyecto
       newSocket.emit('join-project', {
@@ -52,13 +63,34 @@ const useRealTimeUpdates = (projectId) => {
     newSocket.on('disconnect', (reason) => {
       console.log('❌ Desconectado del servidor Socket.IO:', reason);
       setIsConnected(false);
-      showNotification('Conexión perdida', 'warning');
+      
+      // Solo mostrar notificación si no fue desconexión manual
+      if (reason !== 'io client disconnect') {
+        showNotification('Conexión perdida - trabajando en modo local', 'warning');
+      }
     });
 
     newSocket.on('connect_error', (error) => {
       console.error('❌ Error de conexión Socket.IO:', error);
       setIsConnected(false);
-      showNotification('Error de conexión en tiempo real', 'error');
+      setConnectionAttempts(prev => prev + 1);
+      
+      // Solo mostrar error las primeras veces, después deshabilitar
+      if (connectionAttempts < 2) {
+        showNotification('Error de conexión - trabajando en modo local', 'warning');
+      } else if (connectionAttempts >= 2) {
+        console.log('🚫 Máximo de intentos de conexión alcanzado. Deshabilitando reconexión.');
+        setMaxAttemptsReached(true);
+        newSocket.disconnect();
+        showNotification('Servidor no disponible - continuando en modo local', 'info');
+      }
+    });
+
+    newSocket.on('reconnect_failed', () => {
+      console.log('🚫 Falló la reconexión después de varios intentos');
+      setMaxAttemptsReached(true);
+      setIsConnected(false);
+      showNotification('No se pudo conectar al servidor - continuando en modo local', 'info');
     });
 
     // Event listeners para usuarios online
@@ -166,7 +198,7 @@ const useRealTimeUpdates = (projectId) => {
       console.log('🔌 Cerrando conexión Socket.IO');
       newSocket.disconnect();
     };
-  }, [projectId, dispatch, actionTypes, showNotification, getCurrentUserId]);
+  }, [projectId, dispatch, actionTypes, showNotification, getCurrentUserId, ENABLE_REAL_TIME, maxAttemptsReached, connectionAttempts]);
 
   // Funciones para emitir eventos
   const emitTaskCreate = useCallback((task) => {
