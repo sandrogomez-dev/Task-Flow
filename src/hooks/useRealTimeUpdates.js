@@ -198,7 +198,7 @@ const useRealTimeUpdates = (projectId) => {
       console.log('🔌 Cerrando conexión Socket.IO');
       newSocket.disconnect();
     };
-  }, [projectId, dispatch, actionTypes, showNotification, getCurrentUserId, ENABLE_REAL_TIME, maxAttemptsReached, connectionAttempts]);
+  }, [projectId, dispatch, actionTypes, showNotification, getCurrentUserId, maxAttemptsReached, connectionAttempts]);
 
   // Funciones para emitir eventos
   const emitTaskCreate = useCallback((task) => {

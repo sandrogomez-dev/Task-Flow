@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useApp } from '../../contexts/AppContext';
 import TaskCreateModal from './TaskCreateModal';
+import ThemeToggle from './ThemeToggle';
+import useKeyboardShortcuts from '../../hooks/useKeyboardShortcuts';
+import useTheme from '../../hooks/useTheme';
 
 const Navbar = () => {
   const { state } = useApp();
@@ -8,12 +11,17 @@ const Navbar = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showTaskModal, setShowTaskModal] = useState(false);
+  const searchInputRef = useRef(null);
+  const { toggleTheme } = useTheme();
 
   const unreadNotifications = notifications.filter(n => !n.read).length;
 
-  const handleNewTask = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  function handleNewTask(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
     console.log('Botón Nueva Tarea clickeado');
     console.log('Proyecto actual:', currentProject);
     
@@ -24,7 +32,15 @@ const Navbar = () => {
     
     console.log('Abriendo modal de tarea');
     setShowTaskModal(true);
-  };
+  }
+
+  // Configurar atajos de teclado
+  useKeyboardShortcuts({
+    onNewTask: handleNewTask,
+    onToggleTheme: toggleTheme,
+    onSearchFocus: () => searchInputRef.current?.focus(),
+    isModalOpen: showTaskModal
+  });
 
   const handleCloseTaskModal = () => {
     console.log('Cerrando modal de tarea');
@@ -59,15 +75,22 @@ const Navbar = () => {
                 <i className="fas fa-search text-muted"></i>
               </span>
               <input
+                ref={searchInputRef}
                 type="text"
                 className="form-control border-start-0 bg-light"
-                placeholder="Buscar tareas, proyectos..."
+                placeholder="Buscar tareas, proyectos... (Ctrl+K)"
+                title="Presiona Ctrl+K para enfocar"
               />
             </div>
           </div>
 
           {/* Acciones de la navbar */}
           <div className="navbar-nav flex-row align-items-center">
+            {/* Toggle de tema */}
+            <div className="me-3">
+              <ThemeToggle size="sm" />
+            </div>
+
             {/* Botón de nueva tarea */}
             <div className="me-3">
               <button 
@@ -78,10 +101,10 @@ const Navbar = () => {
                   cursor: currentProject ? 'pointer' : 'not-allowed',
                   pointerEvents: 'auto'
                 }}
-                title={!currentProject ? 'Selecciona un proyecto primero' : 'Crear nueva tarea'}
+                title={!currentProject ? 'Selecciona un proyecto primero' : 'Crear nueva tarea (Ctrl+N)'}
               >
                 <i className="fas fa-plus me-2"></i>
-                Nueva Tarea
+                <span className="d-none d-sm-inline">Nueva Tarea</span>
               </button>
             </div>
 

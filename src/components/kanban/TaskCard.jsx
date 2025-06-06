@@ -3,9 +3,12 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import ConfirmModal from '../ui/ConfirmModal';
+import useConfirm from '../../hooks/useConfirm';
 
 const TaskCard = ({ task, isDragging = false, onUpdate, onDelete }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const { confirmState, confirmDelete } = useConfirm();
   
   const {
     attributes,
@@ -42,9 +45,10 @@ const TaskCard = ({ task, isDragging = false, onUpdate, onDelete }) => {
     setShowDetails(true);
   };
 
-  const handleDelete = (e) => {
+  const handleDelete = async (e) => {
     e.stopPropagation();
-    if (window.confirm('¿Estás seguro de que quieres eliminar esta tarea?')) {
+    const confirmed = await confirmDelete(`la tarea "${task.title}"`);
+    if (confirmed) {
       onDelete(task.id);
     }
   };
@@ -55,100 +59,102 @@ const TaskCard = ({ task, isDragging = false, onUpdate, onDelete }) => {
   };
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      className={`task-item task-card ${isDragging || isSortableDragging ? 'dragging' : ''}`}
-      onClick={() => setShowDetails(true)}
-    >
-      {/* Header de la tarea */}
-      <div className="task-header d-flex justify-content-between align-items-start mb-2">
-        <h6 className="task-title mb-1 text-dark-custom">{task.title}</h6>
-        <div className="task-actions">
-          <button
-            className="btn btn-sm btn-outline-secondary me-1"
-            onClick={handleEdit}
-            title="Editar tarea"
-          >
-            <i className="fas fa-edit"></i>
-          </button>
-          <button
-            className="btn btn-sm btn-outline-danger"
-            onClick={handleDelete}
-            title="Eliminar tarea"
-          >
-            <i className="fas fa-trash"></i>
-          </button>
-        </div>
-      </div>
-
-      {/* Descripción */}
-      {task.description && (
-        <p className="task-description text-muted small mb-2">
-          {task.description.length > 100 
-            ? `${task.description.substring(0, 100)}...` 
-            : task.description
-          }
-        </p>
-      )}
-
-      {/* Tags */}
-      {task.tags && task.tags.length > 0 && (
-        <div className="task-tags mb-2">
-          {task.tags.slice(0, 3).map((tag, index) => (
-            <span key={index} className="badge bg-light text-dark me-1 small">
-              {tag}
-            </span>
-          ))}
-          {task.tags.length > 3 && (
-            <span className="badge bg-secondary small">+{task.tags.length - 3}</span>
-          )}
-        </div>
-      )}
-
-      {/* Información adicional */}
-      <div className="task-meta">
-        <div className="d-flex justify-content-between align-items-center">
-          {/* Prioridad */}
-          <span className={`badge bg-${getPriorityColor(task.priority)} small`}>
-            {task.priority === 'high' ? 'Alta' : 
-             task.priority === 'medium' ? 'Media' : 
-             task.priority === 'low' ? 'Baja' : 'Normal'}
-          </span>
-
-          {/* Tiempo gastado */}
-          {task.timeSpent > 0 && (
-            <span className="text-muted small">
-              <i className="fas fa-clock me-1"></i>
-              {formatTimeSpent(task.timeSpent)}
-            </span>
-          )}
+    <>
+      <div
+        ref={setNodeRef}
+        style={style}
+        {...attributes}
+        {...listeners}
+        className={`task-item task-card ${isDragging || isSortableDragging ? 'dragging' : ''}`}
+        onClick={() => setShowDetails(true)}
+      >
+        {/* Header de la tarea */}
+        <div className="task-header d-flex justify-content-between align-items-start mb-2">
+          <h6 className="task-title mb-1 text-dark-custom">{task.title}</h6>
+          <div className="task-actions">
+            <button
+              className="btn btn-sm btn-outline-secondary me-1"
+              onClick={handleEdit}
+              title="Editar tarea"
+            >
+              <i className="fas fa-edit"></i>
+            </button>
+            <button
+              className="btn btn-sm btn-outline-danger"
+              onClick={handleDelete}
+              title="Eliminar tarea"
+            >
+              <i className="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
 
-        {/* Fecha de vencimiento */}
-        {task.dueDate && (
-          <div className="mt-2">
-            <small className={`text-${new Date(task.dueDate) < new Date() ? 'danger' : 'muted'}`}>
-              <i className="fas fa-calendar me-1"></i>
-              {format(new Date(task.dueDate), 'dd MMM yyyy', { locale: es })}
-            </small>
+        {/* Descripción */}
+        {task.description && (
+          <p className="task-description text-muted small mb-2">
+            {task.description.length > 100 
+              ? `${task.description.substring(0, 100)}...` 
+              : task.description
+            }
+          </p>
+        )}
+
+        {/* Tags */}
+        {task.tags && task.tags.length > 0 && (
+          <div className="task-tags mb-2">
+            {task.tags.slice(0, 3).map((tag, index) => (
+              <span key={index} className="badge bg-light text-dark me-1 small">
+                {tag}
+              </span>
+            ))}
+            {task.tags.length > 3 && (
+              <span className="badge bg-secondary small">+{task.tags.length - 3}</span>
+            )}
           </div>
         )}
 
-        {/* Asignado a */}
-        {task.assignee && (
-          <div className="mt-2 d-flex align-items-center">
-            <div className="assignee-avatar me-2">
-              <div className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
-                   style={{ width: '24px', height: '24px', fontSize: '0.75rem' }}>
-                {task.assignee.split(' ').map(n => n[0]).join('').toUpperCase()}
-              </div>
+        {/* Información adicional */}
+        <div className="task-meta">
+          <div className="d-flex justify-content-between align-items-center">
+            {/* Prioridad */}
+            <span className={`badge bg-${getPriorityColor(task.priority)} small`}>
+              {task.priority === 'high' ? 'Alta' : 
+               task.priority === 'medium' ? 'Media' : 
+               task.priority === 'low' ? 'Baja' : 'Normal'}
+            </span>
+
+            {/* Tiempo gastado */}
+            {task.timeSpent > 0 && (
+              <span className="text-muted small">
+                <i className="fas fa-clock me-1"></i>
+                {formatTimeSpent(task.timeSpent)}
+              </span>
+            )}
+          </div>
+
+          {/* Fecha de vencimiento */}
+          {task.dueDate && (
+            <div className="mt-2">
+              <small className={`text-${new Date(task.dueDate) < new Date() ? 'danger' : 'muted'}`}>
+                <i className="fas fa-calendar me-1"></i>
+                {format(new Date(task.dueDate), 'dd MMM yyyy', { locale: es })}
+              </small>
             </div>
-            <small className="text-muted">{task.assignee}</small>
-          </div>
-        )}
+          )}
+
+          {/* Asignado a */}
+          {task.assignee && (
+            <div className="mt-2 d-flex align-items-center">
+              <div className="assignee-avatar me-2">
+                <div className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
+                     style={{ width: '24px', height: '24px', fontSize: '0.75rem' }}>
+                  {task.assignee.split(' ').map(n => n[0]).join('').toUpperCase()}
+                </div>
+              </div>
+              <small className="text-muted">{task.assignee}</small>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Modal de detalles */}
@@ -159,7 +165,10 @@ const TaskCard = ({ task, isDragging = false, onUpdate, onDelete }) => {
           onClose={() => setShowDetails(false)}
         />
       )}
-    </div>
+      
+      {/* Modal de confirmación */}
+      <ConfirmModal {...confirmState} />
+    </>
   );
 };
 

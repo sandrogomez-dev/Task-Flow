@@ -5,9 +5,195 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Dark Theme Styles */
+[data-theme="dark"] {
+  --bs-body-bg: #1a202c;
+  --bs-body-color: #e2e8f0;
+  --bs-secondary-bg: #2d3748;
+  --bs-tertiary-bg: #4a5568;
+}
+
+[data-theme="dark"] body {
+  background-color: #1a202c !important;
+  color: #e2e8f0 !important;
+}
+
+/* Navbar dark theme */
+[data-theme="dark"] .navbar {
+  background-color: #2d3748 !important;
+  border-color: #4a5568 !important;
+}
+
+[data-theme="dark"] .navbar-light .navbar-brand,
+[data-theme="dark"] .navbar-light .navbar-nav .nav-link {
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .breadcrumb-item.active {
+  color: #cbd5e0 !important;
+}
+
+/* Cards and containers */
+[data-theme="dark"] .card {
+  background-color: #2d3748 !important;
+  border-color: #4a5568 !important;
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: #2d3748 !important;
+}
+
+[data-theme="dark"] .bg-light {
+  background-color: #4a5568 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Form controls */
+[data-theme="dark"] .form-control {
+  background-color: #4a5568 !important;
+  border-color: #718096 !important;
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .form-control:focus {
+  background-color: #4a5568 !important;
+  border-color: #63b3ed !important;
+  box-shadow: 0 0 0 0.2rem rgba(99, 179, 237, 0.25) !important;
+}
+
+[data-theme="dark"] .form-select {
+  background-color: #4a5568 !important;
+  border-color: #718096 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Buttons */
+[data-theme="dark"] .btn-outline-secondary {
+  color: #e2e8f0 !important;
+  border-color: #718096 !important;
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover {
+  background-color: #4a5568 !important;
+  border-color: #e2e8f0 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Modals */
+[data-theme="dark"] .modal-content {
+  background-color: #2d3748 !important;
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .modal-header {
+  border-color: #4a5568 !important;
+}
+
+[data-theme="dark"] .modal-footer {
+  border-color: #4a5568 !important;
+  background-color: #1a202c !important;
+}
+
+/* Dropdowns */
+[data-theme="dark"] .dropdown-menu {
+  background-color: #2d3748 !important;
+  border-color: #4a5568 !important;
+}
+
+[data-theme="dark"] .dropdown-item {
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+  background-color: #4a5568 !important;
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .dropdown-header {
+  color: #cbd5e0 !important;
+}
+
+[data-theme="dark"] .dropdown-divider {
+  border-color: #4a5568 !important;
+}
+
+/* Task cards */
+[data-theme="dark"] .task-card {
+  background-color: #2d3748 !important;
+  border-color: #4a5568 !important;
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .task-card:hover {
+  background-color: #4a5568 !important;
+}
+
+[data-theme="dark"] .text-dark-custom {
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .text-muted {
+  color: #a0aec0 !important;
+}
+
+/* Kanban columns */
+[data-theme="dark"] .kanban-column {
+  background-color: #2d3748 !important;
+}
+
+[data-theme="dark"] .kanban-column-header {
+  background-color: #4a5568 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Badges */
+[data-theme="dark"] .badge.bg-light {
+  background-color: #4a5568 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Tables */
+[data-theme="dark"] .table {
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .table-striped > tbody > tr:nth-of-type(odd) > td {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Borders */
+[data-theme="dark"] .border-bottom {
+  border-color: #4a5568 !important;
+}
+
+[data-theme="dark"] .border {
+  border-color: #4a5568 !important;
+}
+
+/* Input groups */
+[data-theme="dark"] .input-group-text {
+  background-color: #4a5568 !important;
+  border-color: #718096 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Alerts */
+[data-theme="dark"] .alert {
+  background-color: #2d3748 !important;
+  border-color: #4a5568 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Smooth transitions for theme switching */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }

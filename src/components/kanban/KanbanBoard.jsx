@@ -21,6 +21,7 @@ import KanbanColumn from './KanbanColumn';
 import TaskCard from './TaskCard';
 import { useApp } from '../../contexts/AppContext';
 import useRealTimeUpdates from '../../hooks/useRealTimeUpdates';
+import LoadingSpinner from '../ui/LoadingSpinner';
 
 /**
  * Componente: KanbanBoard
@@ -236,8 +237,12 @@ const KanbanBoard = ({
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '400px' }}>
-        <div className="loading-spinner"></div>
-        <span className="ms-2">Cargando tablero...</span>
+        <LoadingSpinner 
+          variant="dots" 
+          size="lg" 
+          text="Cargando tablero..." 
+          color="primary"
+        />
       </div>
     );
   }
