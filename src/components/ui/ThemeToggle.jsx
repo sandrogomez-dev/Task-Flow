@@ -2,7 +2,7 @@ import React from 'react';
 import useTheme from '../../hooks/useTheme';
 
 const ThemeToggle = ({ className = '', size = 'md' }) => {
-  const { theme, toggleTheme, isDark } = useTheme();
+  const { toggleTheme, isDark } = useTheme();
 
   const sizeClasses = {
     sm: 'btn-sm',
